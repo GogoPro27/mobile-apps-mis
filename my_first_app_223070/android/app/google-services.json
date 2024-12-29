@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "606132459245",
+    "project_id": "goch-prva-aplikacija-mis",
+    "storage_bucket": "goch-prva-aplikacija-mis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606132459245:android:fb18f6a1d31a8687e21ee4",
+        "android_client_info": {
+          "package_name": "com.first.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2P09B_p1486tGjWMYk_6jeWt69HFrXc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

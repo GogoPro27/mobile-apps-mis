@@ -3,6 +3,7 @@ import 'package:my_first_app_223070/services/api_services.dart';
 import 'package:my_first_app_223070/widgets/category_card.dart';
 import 'package:my_first_app_223070/screens/joke_list_screen.dart';
 import 'package:my_first_app_223070/screens/random_joke_screen.dart';
+import 'package:my_first_app_223070/screens/favorite_jokes_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,13 +14,19 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<List<String>> _futureTypes;
 
   @override
-  void initState() {
-    super.initState();
-    _futureTypes = ApiServices.fetchJokeTypes();
-  }
+void initState() {
+  super.initState();
+
+  // Existing code
+  _futureTypes = ApiServices.fetchJokeTypes();
+}
 
   void _goToRandomJoke() {
     Navigator.pushNamed(context, RandomJokeScreen.routeName);
+  }
+
+  void _goToFavoriteJokes() { 
+    Navigator.pushNamed(context, FavoriteJokesScreen.routeName);
   }
 
   @override
@@ -28,6 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Joke Categories'),
         actions: [
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: _goToFavoriteJokes,
+            tooltip: 'Favorite Jokes',
+          ),
           IconButton(
             icon: Icon(Icons.casino),
             onPressed: _goToRandomJoke,
@@ -41,13 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
-          // if (snapshot.hasError) {
-          //   return Center(child: Text('Error loading categories'));
-          // }
-        
           if (snapshot.hasError) {
             return Center(child: Text('Error loading categories: ${snapshot.error}'));
-          } 
+          }
           final types = snapshot.data!;
           return ListView.builder(
             itemCount: types.length,
@@ -55,13 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
               return CategoryCard(
                 category: types[index],
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (ctx) => JokeListScreen(jokeType: types[index]),
-                    ),
-                  );
-                },
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (ctx) => JokeListScreen(jokeType: types[index]),
+                ),
+              );
+              },
               );
             },
           );
